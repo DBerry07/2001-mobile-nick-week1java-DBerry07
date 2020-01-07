@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,28 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String[] tokens = phrase.split(" ");
+		String acronym = "";
+		int counter = 0;
+		while (counter != tokens.length){
+			String[] hyphens = tokens[counter].split("-");
+			if (hyphens.length >= 2) {
+				String[] newArray = Arrays.copyOf(tokens, tokens.length + hyphens.length - 1);
+				tokens = newArray;
+				for (int i = tokens.length - 1; i >= counter; i--) {
+					tokens[i] = tokens[i - 1];
+				}
+				for (int i = 0; i < hyphens.length; i++) {
+					tokens[counter + i] = hyphens[i];
+				}
+			}
+			counter++;
+		}
+		for (String word : tokens) {
+			acronym += word.charAt(0);
+		}
+		acronym = acronym.toUpperCase();
+		return acronym;
 	}
 
 	/**
@@ -420,7 +442,7 @@ public class EvaluationService {
 	}
 
 	/**
-	 * 16. Determine if a sentence is a pangram. A pangram (Greek: παν γράμμα, pan
+	 * 16. Determine if a sentence is a pangram. A pangram (pan
 	 * gramma, "every letter") is a sentence using every letter of the alphabet at
 	 * least once. The best known English pangram is:
 	 * 
