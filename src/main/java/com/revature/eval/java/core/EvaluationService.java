@@ -1,9 +1,12 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class EvaluationService {
 
@@ -343,7 +346,40 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		
+		ArrayList<String> words = new ArrayList<String>();
+		HashMap<String, Integer> map = new HashMap<>();
+		StringBuilder build = new StringBuilder();
+		
+		for (int i = 0; i < string.length(); i++) {
+			build.append(string.charAt(i));
+		}
+		for (int i = 0; i < build.length(); i++) {
+			if (((Character.compare(build.charAt(i), 'a') < 0 || Character.compare(build.charAt(i), 'z') > 0)) 
+					//|| (Character.compare(build.charAt(i), 'A') < 0 || Character.compare(build.charAt(i),  'Z') > 0)
+					) {
+				build.replace(i, i + 1, " ");
+				System.out.println(build);
+			}
+		}
+		String str = build.toString();
+		String[] tokens = str.split(" ");
+		
+		
+		for (String word : tokens) {
+			if (map.containsKey(word) == false) {
+				if (word.length() == 0){
+					continue;
+				}
+				map.put(word, 1);
+			}
+			else {
+				map.replace(word, map.get(word) + 1);
+			}
+		}
+		
+		
+		return map;
 	}
 
 	/**
