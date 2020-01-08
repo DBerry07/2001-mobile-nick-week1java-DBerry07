@@ -187,7 +187,94 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		int points = 0;
+		char[] tokens = string.toUpperCase().toCharArray();
+		
+		for (char letter : tokens) {
+			switch (letter) {
+			
+			case ('A'):
+				points += 1;
+				break;
+			case ('B'):
+				points += 3;
+				break;
+			case ('C'):
+				points += 3;
+				break;
+			case ('D'):
+				points += 2;
+				break;
+			case ('E'):
+				points += 1;
+				break;
+			case ('F'):
+				points += 4;
+				break;
+			case ('G'):
+				points += 2;
+				break;
+			case ('H'):
+				points += 4;
+				break;
+			case ('I'):
+				points += 1;
+				break;
+			case ('J'):
+				points += 8;
+				break;
+			case ('K'):
+				points += 5;
+				break;
+			case ('L'):
+				points += 1;
+				break;
+			case ('M'):
+				points += 3;
+				break;
+			case ('N'):
+				points += 1;
+				break;
+			case ('O'):
+				points += 1;
+				break;
+			case ('P'):
+				points += 3;
+				break;
+			case ('Q'):
+				points += 10;
+				break;
+			case ('R'):
+				points += 1;
+				break;
+			case ('S'):
+				points += 1;
+				break;
+			case ('T'):
+				points += 1;
+				break;
+			case ('U'):
+				points += 1;
+				break;
+			case ('V'):
+				points += 4;
+				break;
+			case ('W'):
+				points += 4;
+				break;
+			case ('X'):
+				points += 8;
+				break;
+			case ('Y'):
+				points += 4; 
+				break;
+			case ('Z'):
+				points += 10;
+				break;
+			}
+		}
+		
+		return points;
 	}
 
 	/**
@@ -223,7 +310,26 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		
+		char[] characters = string.toCharArray();
+		StringBuilder build = new StringBuilder();
+		for (char each : characters) {
+			if (Character.compare(each, '0') >= 0 && Character.compare(each, '9') <= 0) {
+				build.append(each);
+			}
+		}
+		if (build.length() > 11 || build.length() < 10) {
+			throw new IllegalArgumentException();
+		}
+		else {
+			if (build.charAt(0) == '1') {
+				build.deleteCharAt(0);
+			}
+		}
+		
+		String newString = build.toString();
+		
+		return newString;
 	}
 
 	/**
