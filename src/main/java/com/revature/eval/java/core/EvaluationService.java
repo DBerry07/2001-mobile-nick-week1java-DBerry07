@@ -726,7 +726,40 @@ public class EvaluationService {
 		 */
 		public static String encode(String string) {
 			// TODO Write an implementation for this method declaration
-			return null;
+			
+			char[] letters = string.toCharArray();
+			int counter = 0;
+			char space = ' ';
+			
+			StringBuilder builder = new StringBuilder();
+			int spaces = 0;
+			
+			for (char letter : letters) {
+				if (counter == 5 && (((int) letter >= (int) 'a' && (int) letter <= (int) 'z') 
+						|| ((int) letter >= (int) 'A' && (int) letter <= (int) 'Z')) ) {
+					builder.append(space);
+					counter = 0;
+				}
+				if (Character.isDigit(letter) == true) {
+					builder.append(letter);
+					counter++;
+				}
+				
+				else if ((int) letter >= (int) 'a' && (int) letter <= (int) 'z') {
+					spaces = (int) letter - (int) 'a';
+					char encoded = (char) ((int) 'z' - spaces);
+					builder.append(encoded);
+					counter++;					
+				}
+				else if ((int) letter >= (int) 'A' && (int) letter <= (int) 'Z'){
+					spaces = (int) letter - (int) 'A';
+					char encoded = (char) ((int) 'z' - spaces);
+					builder.append(encoded);
+					counter++;	
+				}				
+			}
+			
+			return builder.toString();
 		}
 
 		/**
