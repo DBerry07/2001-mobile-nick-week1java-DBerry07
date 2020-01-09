@@ -664,7 +664,32 @@ public class EvaluationService {
 	 */
 	public int calculateNthPrime(int i) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		ArrayList<Integer> primes = new ArrayList<Integer>();
+		
+		if (i <= 0) {
+			throw new IllegalArgumentException();
+		}
+		
+		int number = 2;
+		int divisor;
+		while (primes.size() != i) {
+			divisor = number - 1;
+			while (divisor >= 2) {
+				if (divisor == 1) {
+					break;
+				}
+				if (number % divisor == 0) {
+					break;
+				}
+				divisor--;
+			}
+			if (divisor == 1) {
+				primes.add(number);
+			}
+			number++;
+		}
+		
+		return primes.get(i - 1);
 	}
 
 	/**
