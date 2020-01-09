@@ -359,7 +359,7 @@ public class EvaluationService {
 					//|| (Character.compare(build.charAt(i), 'A') < 0 || Character.compare(build.charAt(i),  'Z') > 0)
 					) {
 				build.replace(i, i + 1, " ");
-				System.out.println(build);
+				//System.out.println(build);
 			}
 		}
 		String str = build.toString();
@@ -422,7 +422,46 @@ public class EvaluationService {
 
 		public int indexOf(T t) {
 			// TODO Write an implementation for this method declaration
-			return 0;
+			int middle = sortedList.size() / 2;
+			int max_increment = sortedList.size();
+			//System.out.println(sortedList.get(middle).hashCode());
+			//System.out.println(t.hashCode());
+			while (!sortedList.get(middle).equals(t)) {
+				//System.out.println(middle);
+				if (sortedList.get(middle).hashCode() > t.hashCode()) {
+					if (middle == 1) {
+						middle = 0;
+					}
+					int increment = (int) Math.floor(middle / 2);
+					if (increment > max_increment) {
+						increment = max_increment;
+					}
+					else {
+						max_increment = increment;
+					}
+					middle = middle - increment;
+				}
+				else if (sortedList.get(middle).hashCode() < t.hashCode()) {
+					int increment = (int) Math.floor(middle / 2);
+					if (increment > max_increment) {
+						increment = max_increment;
+					}
+					else {
+						max_increment = increment;
+					}
+					middle = middle + increment;
+				}
+				else {
+					return middle;
+				}
+				if (middle >= sortedList.size()) {
+					middle = sortedList.size() - 1;
+				}
+				else if (middle < 0) {
+					middle = 0;
+				}
+			}
+			return middle;
 		}
 
 		public BinarySearch(List<T> sortedList) {
@@ -459,7 +498,43 @@ public class EvaluationService {
 	 */
 	public String toPigLatin(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		ArrayList<StringBuilder> builders = new ArrayList<StringBuilder>();
+		String[] words = string.split(" ");
+		for (String word : words) {
+			StringBuilder normalWord = new StringBuilder();
+			for (int i = 0; i < word.length(); i++) {
+				normalWord.append(word.charAt(i));
+			}
+			builders.add(normalWord);
+		}
+		//System.out.println(builders);
+		
+		for (StringBuilder build : builders) {
+			while (build.charAt(0) != 'a' && build.charAt(0) != 'e' 
+					&& build.charAt(0) != 'i' && build.charAt(0) != 'o' 
+					&& build.charAt(0) != 'u') {
+				build.append(build.charAt(0));
+				build.delete(0, 1);
+			}
+			while (build.charAt(1) == 'a' || build.charAt(1) == 'e' 
+					|| build.charAt(1) == 'i' || build.charAt(1) == 'o' 
+					|| build.charAt(1) == 'u') {
+				if (build.charAt(1) == build.charAt(0)) {
+					break;
+				}
+				build.append(build.charAt(0));
+				build.delete(0, 1);
+			}
+			build.append("ay");
+		}
+		String str = "";
+		for (StringBuilder build : builders) {
+			str += build.toString() + " ";
+		}
+		str = str.trim();
+		//System.out.println(build);
+		return str;
+		
 	}
 
 	/**
