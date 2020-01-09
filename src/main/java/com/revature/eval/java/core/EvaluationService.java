@@ -770,7 +770,27 @@ public class EvaluationService {
 		 */
 		public static String decode(String string) {
 			// TODO Write an implementation for this method declaration
-			return null;
+			StringBuilder builder = new StringBuilder();
+			char[] letters = string.toCharArray();
+			int spaces = 0;
+			
+			for (char letter : letters) {
+				if (Character.isDigit(letter) == true) {
+					builder.append(letter);
+				}
+				
+				else if ((int) letter >= (int) 'a' && (int) letter <= (int) 'z') {
+					spaces = (int) letter - (int) 'a';
+					char encoded = (char) ((int) 'z' - spaces);
+					builder.append(encoded);			
+				}
+				else if ((int) letter >= (int) 'A' && (int) letter <= (int) 'Z'){
+					spaces = (int) letter - (int) 'A';
+					char encoded = (char) ((int) 'z' - spaces);
+					builder.append(encoded);
+				}				
+			}
+			return builder.toString();
 		}
 	}
 
