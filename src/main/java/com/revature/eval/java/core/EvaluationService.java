@@ -19,7 +19,7 @@ public class EvaluationService {
 	 */
 	public String reverse(String string) {
 		char[] reversed = new char[string.length()];
-		for (int i = reversed.length - 1, j=0; i >= 0; i--, j++) {
+		for (int i = reversed.length - 1, j = 0; i >= 0; i--, j++) {
 			reversed[j] = string.charAt(i);
 		}
 		return new String(reversed);
@@ -38,7 +38,7 @@ public class EvaluationService {
 		String[] tokens = phrase.split(" ");
 		String acronym = "";
 		int counter = 0;
-		while (counter != tokens.length){
+		while (counter != tokens.length) {
 			String[] hyphens = tokens[counter].split("-");
 			if (hyphens.length >= 2) {
 				String[] newArray = Arrays.copyOf(tokens, tokens.length + hyphens.length - 1);
@@ -123,8 +123,7 @@ public class EvaluationService {
 			}
 			if (counter == equalSides) {
 				return true;
-			} 
-			else {
+			} else {
 				return false;
 			}
 		}
@@ -144,8 +143,7 @@ public class EvaluationService {
 			}
 			if (counter >= equalSides) {
 				return true;
-			} 
-			else {
+			} else {
 				return false;
 			}
 		}
@@ -165,8 +163,7 @@ public class EvaluationService {
 			}
 			if (counter == equalSides) {
 				return true;
-			} 
-			else {
+			} else {
 				return false;
 			}
 		}
@@ -192,10 +189,10 @@ public class EvaluationService {
 		// TODO Write an implementation for this method declaration
 		int points = 0;
 		char[] tokens = string.toUpperCase().toCharArray();
-		
+
 		for (char letter : tokens) {
 			switch (letter) {
-			
+
 			case ('A'):
 				points += 1;
 				break;
@@ -269,14 +266,14 @@ public class EvaluationService {
 				points += 8;
 				break;
 			case ('Y'):
-				points += 4; 
+				points += 4;
 				break;
 			case ('Z'):
 				points += 10;
 				break;
 			}
 		}
-		
+
 		return points;
 	}
 
@@ -313,7 +310,7 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
-		
+
 		char[] characters = string.toCharArray();
 		StringBuilder build = new StringBuilder();
 		for (char each : characters) {
@@ -323,15 +320,14 @@ public class EvaluationService {
 		}
 		if (build.length() > 11 || build.length() < 10) {
 			throw new IllegalArgumentException();
-		}
-		else {
+		} else {
 			if (build.charAt(0) == '1') {
 				build.deleteCharAt(0);
 			}
 		}
-		
+
 		String newString = build.toString();
-		
+
 		return newString;
 	}
 
@@ -346,39 +342,37 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		
+
 		ArrayList<String> words = new ArrayList<String>();
 		HashMap<String, Integer> map = new HashMap<>();
 		StringBuilder build = new StringBuilder();
-		
+
 		for (int i = 0; i < string.length(); i++) {
 			build.append(string.charAt(i));
 		}
 		for (int i = 0; i < build.length(); i++) {
-			if (((Character.compare(build.charAt(i), 'a') < 0 || Character.compare(build.charAt(i), 'z') > 0)) 
-					//|| (Character.compare(build.charAt(i), 'A') < 0 || Character.compare(build.charAt(i),  'Z') > 0)
-					) {
+			if (((Character.compare(build.charAt(i), 'a') < 0 || Character.compare(build.charAt(i), 'z') > 0))
+			// || (Character.compare(build.charAt(i), 'A') < 0 ||
+			// Character.compare(build.charAt(i), 'Z') > 0)
+			) {
 				build.replace(i, i + 1, " ");
-				//System.out.println(build);
+				// System.out.println(build);
 			}
 		}
 		String str = build.toString();
 		String[] tokens = str.split(" ");
-		
-		
+
 		for (String word : tokens) {
 			if (map.containsKey(word) == false) {
-				if (word.length() == 0){
+				if (word.length() == 0) {
 					continue;
 				}
 				map.put(word, 1);
-			}
-			else {
+			} else {
 				map.replace(word, map.get(word) + 1);
 			}
 		}
-		
-		
+
 		return map;
 	}
 
@@ -424,10 +418,10 @@ public class EvaluationService {
 			// TODO Write an implementation for this method declaration
 			int middle = sortedList.size() / 2;
 			int max_increment = sortedList.size();
-			//System.out.println(sortedList.get(middle).hashCode());
-			//System.out.println(t.hashCode());
+			// System.out.println(sortedList.get(middle).hashCode());
+			// System.out.println(t.hashCode());
 			while (!sortedList.get(middle).equals(t)) {
-				//System.out.println(middle);
+				// System.out.println(middle);
 				if (sortedList.get(middle).hashCode() > t.hashCode()) {
 					if (middle == 1) {
 						middle = 0;
@@ -435,29 +429,24 @@ public class EvaluationService {
 					int increment = (int) Math.floor(middle / 2);
 					if (increment > max_increment) {
 						increment = max_increment;
-					}
-					else {
+					} else {
 						max_increment = increment;
 					}
 					middle = middle - increment;
-				}
-				else if (sortedList.get(middle).hashCode() < t.hashCode()) {
+				} else if (sortedList.get(middle).hashCode() < t.hashCode()) {
 					int increment = (int) Math.floor(middle / 2);
 					if (increment > max_increment) {
 						increment = max_increment;
-					}
-					else {
+					} else {
 						max_increment = increment;
 					}
 					middle = middle + increment;
-				}
-				else {
+				} else {
 					return middle;
 				}
 				if (middle >= sortedList.size()) {
 					middle = sortedList.size() - 1;
-				}
-				else if (middle < 0) {
+				} else if (middle < 0) {
 					middle = 0;
 				}
 			}
@@ -507,17 +496,15 @@ public class EvaluationService {
 			}
 			builders.add(normalWord);
 		}
-		//System.out.println(builders);
-		
+		// System.out.println(builders);
+
 		for (StringBuilder build : builders) {
-			while (build.charAt(0) != 'a' && build.charAt(0) != 'e' 
-					&& build.charAt(0) != 'i' && build.charAt(0) != 'o' 
+			while (build.charAt(0) != 'a' && build.charAt(0) != 'e' && build.charAt(0) != 'i' && build.charAt(0) != 'o'
 					&& build.charAt(0) != 'u') {
 				build.append(build.charAt(0));
 				build.delete(0, 1);
 			}
-			while (build.charAt(1) == 'a' || build.charAt(1) == 'e' 
-					|| build.charAt(1) == 'i' || build.charAt(1) == 'o' 
+			while (build.charAt(1) == 'a' || build.charAt(1) == 'e' || build.charAt(1) == 'i' || build.charAt(1) == 'o'
 					|| build.charAt(1) == 'u') {
 				if (build.charAt(1) == build.charAt(0)) {
 					break;
@@ -532,9 +519,9 @@ public class EvaluationService {
 			str += build.toString() + " ";
 		}
 		str = str.trim();
-		//System.out.println(build);
+		// System.out.println(build);
 		return str;
-		
+
 	}
 
 	/**
@@ -563,8 +550,7 @@ public class EvaluationService {
 		}
 		if (total == input) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -581,7 +567,25 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		List<Long> primes = Arrays.asList(2L, 3L, 5L, 7L, 11L, 13L, 17L, 19L, 23L);
+		List<Long> factors = new ArrayList<Long>();
+		long remainder = l;
+		int counter = 0;
+
+		do {
+			for (long prime : primes) {
+				if (remainder % prime == 0) {
+					remainder = remainder / prime;
+					factors.add((long) prime);
+					break;
+				}
+			}
+			if (counter == primes.size()) {
+				primes.add(remainder);
+			}
+		} while (remainder != 1);
+
+		return factors;
 	}
 
 	/**
@@ -620,7 +624,28 @@ public class EvaluationService {
 
 		public String rotate(String string) {
 			// TODO Write an implementation for this method declaration
-			return null;
+			char[] characters = string.toCharArray();
+			StringBuilder builder = new StringBuilder();
+
+			for (char letter : characters) {
+				if ((int) letter >= (int) 'a' && (int) letter <= (int) 'z') {
+					int val = (char) ((int) letter + key);
+					if (val > (int) 'z') {
+						val -= 26;
+					}
+					letter = (char) val;
+					// System.out.println(letter);
+				} else if ((int) letter >= (int) 'A' && (int) letter <= (int) 'Z') {
+					int val = (char) ((int) letter + key);
+					if (val > (int) 'Z') {
+						val -= 26;
+					}
+					letter = (char) val;
+				}
+				builder.append(letter);
+			}
+
+			return builder.toString();
 		}
 
 	}
@@ -719,9 +744,9 @@ public class EvaluationService {
 	}
 
 	/**
-	 * 16. Determine if a sentence is a pangram. A pangram (pan
-	 * gramma, "every letter") is a sentence using every letter of the alphabet at
-	 * least once. The best known English pangram is:
+	 * 16. Determine if a sentence is a pangram. A pangram (pan gramma, "every
+	 * letter") is a sentence using every letter of the alphabet at least once. The
+	 * best known English pangram is:
 	 * 
 	 * The quick brown fox jumps over the lazy dog.
 	 * 
