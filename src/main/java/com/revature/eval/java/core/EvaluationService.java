@@ -577,12 +577,19 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		List<Long> primes = Arrays.asList(2L, 3L, 5L, 7L, 11L, 13L, 17L, 19L, 23L);
+		List<Long> primes = new ArrayList<Long>();
+		//primes.add(2L);
+		List<Long> temp = Arrays.asList(2L, 3L, 5L, 7L, 11L, 13L, 17L, 19L, 23L);
+		primes.addAll(temp);
 		List<Long> factors = new ArrayList<Long>();
 		long remainder = l;
 		int counter = 0;
-
+		/*
+		 * for (long i = 3; i < l; i++) { if (i % 10000L == 0) {
+		 * System.out.println("Still Running " + counter); counter++; } for (long j = i
+		 * - 1L; j > 1; j--) { if (i % j == 0) { break; } else if (j == 2){
+		 * primes.add(i); } } } counter = 0;
+		 */
 		do {
 			for (long prime : primes) {
 				if (remainder % prime == 0) {
@@ -590,10 +597,12 @@ public class EvaluationService {
 					factors.add((long) prime);
 					break;
 				}
+				counter++;
 			}
 			if (counter == primes.size()) {
 				primes.add(remainder);
 			}
+			counter = 0;
 		} while (remainder != 1);
 
 		return factors;
@@ -674,7 +683,9 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int calculateNthPrime(int i) {
-		// TODO Write an implementation for this method declaration
+		
+		// **NOTE** testBigPrime CAN TAKE A MINUTE TO COMPLETE
+		
 		ArrayList<Integer> primes = new ArrayList<Integer>();
 
 		if (i <= 0) {
