@@ -1056,7 +1056,50 @@ public class EvaluationService {
 	 */
 	public int solveWordProblem(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		String[] parsed = string.split(" ");
+		List<Integer> values = new ArrayList<Integer>();
+		String operation = "";
+		int answer = 0;
+		
+		for (String each : parsed) {
+			each = each.replace("?", "");
+			try {
+				values.add(Integer.parseInt(each));
+			}
+			catch (Exception e){
+				System.out.println("Not an integer");
+			}
+			if (each.contains("divided")) {
+				operation = "/";
+			}
+			else if (each.contains("multiplied")) {
+				operation = "*";
+			}
+			else if (each.contains("plus")) {
+				operation = "+";
+			}
+			else if (each.contains("minus")) {
+				operation = "-";
+			}
+		}
+		
+		{
+			if (operation == "-") {
+				answer = values.get(0) - values.get(1);
+			}
+			else if (operation == "+") {
+				answer = values.get(0) + values.get(1);
+			}
+			else if (operation == "/") {
+				answer = values.get(0) / values.get(1);
+			}
+			else if (operation == "*") {
+				answer = values.get(0) * values.get(1);
+			}			
+		}
+		
+		return answer;
 	}
 
 }
