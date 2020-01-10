@@ -4,6 +4,7 @@ import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -818,7 +819,31 @@ public class EvaluationService {
 	 */
 	public boolean isValidIsbn(String string) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		
+		char[] characters = string.toCharArray();
+		List<Integer> digits = new LinkedList<Integer>();
+		int multiplier = 10;
+		int product = 0;
+		for (char character : characters) {
+			if (digits.size() == 9 && character == 'X') {
+				digits.add(10);
+			}
+			else if (Character.isDigit(character) == true) {
+				digits.add(Character.getNumericValue(character));
+			}
+			
+		}
+		for (int digit : digits) {
+			product = product + (digit * multiplier);
+			multiplier--;
+		}
+		
+		if (digits.size() == 10 && product % 11 == 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
