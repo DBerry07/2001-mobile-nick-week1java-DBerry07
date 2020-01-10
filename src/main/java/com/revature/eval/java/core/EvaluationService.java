@@ -1,8 +1,16 @@
 package com.revature.eval.java.core;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
+import java.time.temporal.TemporalField;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -885,7 +893,18 @@ public class EvaluationService {
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		long gigasecond = (long) Math.pow(10, 9);
+		Temporal lived = given;
+		Duration days = Duration.ofDays(gigasecond);
+		if (!given.isSupported(ChronoField.SECOND_OF_DAY)) {
+			LocalDateTime converted = ((LocalDate) given).atStartOfDay();
+			lived = converted.plus(gigasecond, ChronoUnit.SECONDS);
+		}
+		else {
+			LocalDateTime converted = (LocalDateTime) given;
+			lived = converted.plus(gigasecond, ChronoUnit.SECONDS);
+		}
+		return lived;
 	}
 
 	/**
