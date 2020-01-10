@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -576,14 +577,57 @@ public class EvaluationService {
 	 * @param l
 	 * @return
 	 */
+	
+	/*
+	 * testProductOfPrimes CAN TAKE UP TO 2 MINUTES!
+	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
+		List<Long> numbers = new ArrayList<Long>();
 		List<Long> primes = new ArrayList<Long>();
-		//primes.add(2L);
-		List<Long> temp = Arrays.asList(2L, 3L, 5L, 7L, 11L, 13L, 17L, 19L, 23L);
-		primes.addAll(temp);
+		// primes.add(2L);
+		//List<Long> temp = Arrays.asList(2L, 3L, 5L, 7L, 11L, 13L, 17L, 19L, 23L);
+		//primes.addAll(temp);
 		List<Long> factors = new ArrayList<Long>();
 		long remainder = l;
 		int counter = 0;
+		{
+			for (long i = 2; i <= l; i++) {
+				numbers.add(i);
+			}
+			
+			Iterator<Long> iter = numbers.iterator();
+			for (int i = 0; i < numbers.size(); i++) {
+				if (numbers.get(i) == 0) {
+					continue;
+				}
+				for (int j = i + 1; j < numbers.size() - 1; j++) {
+					if (numbers.get(j) == 0) {
+						continue;
+					}
+					boolean not = numbers.get(j) >= (long) Math.pow(numbers.get(i), 2);
+					boolean yes = numbers.get(j) % numbers.get(i) == 0L;
+					//System.out.println(not + " " + yes);
+					//System.out.println(numbers.get(j));
+					//System.out.println((long) Math.pow(numbers.get(i), 2));
+					if (numbers.get(j) >= (long) Math.pow(numbers.get(i), 2) && numbers.get(j) % numbers.get(i) == 0L) {
+						numbers.set(j, 0L);
+						//System.out.println("Zeroed");
+					}
+				}
+			}
+			
+			while (iter.hasNext()) {
+				if (iter.next() == 0L) {
+					iter.remove();
+				}
+			}
+			
+			//System.out.println(numbers);
+			primes = numbers;
+			
+		}
+		
+		
 		/*
 		 * for (long i = 3; i < l; i++) { if (i % 10000L == 0) {
 		 * System.out.println("Still Running " + counter); counter++; } for (long j = i
@@ -683,9 +727,9 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int calculateNthPrime(int i) {
-		
-		// **NOTE** testBigPrime CAN TAKE A MINUTE TO COMPLETE
-		
+
+		// **NOTE** testBigPrime CAN TAKE UP TO A MINUTE TO COMPLETE
+
 		ArrayList<Integer> primes = new ArrayList<Integer>();
 
 		if (i <= 0) {
@@ -991,38 +1035,36 @@ public class EvaluationService {
 	 */
 	public boolean isLuhnValid(String string) {
 		// TODO Write an implementation for this method declaration
-		
+
 		char[] array = string.toCharArray();
 		List<Integer> numbers = new ArrayList<Integer>();
-		
+
 		for (char number : array) {
 			if (Character.isDigit(number)) {
 				numbers.add(Character.getNumericValue(number));
-			}
-			else if (!Character.isDigit(number) && number != ' ') {
+			} else if (!Character.isDigit(number) && number != ' ') {
 				return false;
 			}
 		}
-		
+
 		int place = numbers.size() - 2;
 		int total = 0;
-		
+
 		while (place >= 0) {
 			numbers.set(place, numbers.get(place) * 2);
 			if (numbers.get(place) > 9) {
 				numbers.set(place, numbers.get(place) - 9);
 			}
-			place -= 2;			
+			place -= 2;
 		}
-		
+
 		for (int each : numbers) {
 			total += each;
 		}
-		
+
 		if (total % 10 == 0) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -1056,49 +1098,42 @@ public class EvaluationService {
 	 */
 	public int solveWordProblem(String string) {
 		// TODO Write an implementation for this method declaration
-		
+
 		String[] parsed = string.split(" ");
 		List<Integer> values = new ArrayList<Integer>();
 		String operation = "";
 		int answer = 0;
-		
+
 		for (String each : parsed) {
 			each = each.replace("?", "");
 			try {
 				values.add(Integer.parseInt(each));
-			}
-			catch (Exception e){
+			} catch (Exception e) {
 				System.out.println("Not an integer");
 			}
 			if (each.contains("divided")) {
 				operation = "/";
-			}
-			else if (each.contains("multiplied")) {
+			} else if (each.contains("multiplied")) {
 				operation = "*";
-			}
-			else if (each.contains("plus")) {
+			} else if (each.contains("plus")) {
 				operation = "+";
-			}
-			else if (each.contains("minus")) {
+			} else if (each.contains("minus")) {
 				operation = "-";
 			}
 		}
-		
+
 		{
 			if (operation == "-") {
 				answer = values.get(0) - values.get(1);
-			}
-			else if (operation == "+") {
+			} else if (operation == "+") {
 				answer = values.get(0) + values.get(1);
-			}
-			else if (operation == "/") {
+			} else if (operation == "/") {
 				answer = values.get(0) / values.get(1);
-			}
-			else if (operation == "*") {
+			} else if (operation == "*") {
 				answer = values.get(0) * values.get(1);
-			}			
+			}
 		}
-		
+
 		return answer;
 	}
 
