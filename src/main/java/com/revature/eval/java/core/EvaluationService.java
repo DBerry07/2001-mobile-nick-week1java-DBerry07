@@ -666,11 +666,11 @@ public class EvaluationService {
 	public int calculateNthPrime(int i) {
 		// TODO Write an implementation for this method declaration
 		ArrayList<Integer> primes = new ArrayList<Integer>();
-		
+
 		if (i <= 0) {
 			throw new IllegalArgumentException();
 		}
-		
+
 		int number = 2;
 		int divisor;
 		while (primes.size() != i) {
@@ -689,7 +689,7 @@ public class EvaluationService {
 			}
 			number++;
 		}
-		
+
 		return primes.get(i - 1);
 	}
 
@@ -727,17 +727,17 @@ public class EvaluationService {
 		 */
 		public static String encode(String string) {
 			// TODO Write an implementation for this method declaration
-			
+
 			char[] letters = string.toCharArray();
 			int counter = 0;
 			char space = ' ';
-			
+
 			StringBuilder builder = new StringBuilder();
 			int spaces = 0;
-			
+
 			for (char letter : letters) {
-				if (counter == 5 && (((int) letter >= (int) 'a' && (int) letter <= (int) 'z') 
-						|| ((int) letter >= (int) 'A' && (int) letter <= (int) 'Z')) ) {
+				if (counter == 5 && (((int) letter >= (int) 'a' && (int) letter <= (int) 'z')
+						|| ((int) letter >= (int) 'A' && (int) letter <= (int) 'Z'))) {
 					builder.append(space);
 					counter = 0;
 				}
@@ -745,21 +745,20 @@ public class EvaluationService {
 					builder.append(letter);
 					counter++;
 				}
-				
+
 				else if ((int) letter >= (int) 'a' && (int) letter <= (int) 'z') {
 					spaces = (int) letter - (int) 'a';
 					char encoded = (char) ((int) 'z' - spaces);
 					builder.append(encoded);
-					counter++;					
-				}
-				else if ((int) letter >= (int) 'A' && (int) letter <= (int) 'Z'){
+					counter++;
+				} else if ((int) letter >= (int) 'A' && (int) letter <= (int) 'Z') {
 					spaces = (int) letter - (int) 'A';
 					char encoded = (char) ((int) 'z' - spaces);
 					builder.append(encoded);
-					counter++;	
-				}				
+					counter++;
+				}
 			}
-			
+
 			return builder.toString();
 		}
 
@@ -774,22 +773,21 @@ public class EvaluationService {
 			StringBuilder builder = new StringBuilder();
 			char[] letters = string.toCharArray();
 			int spaces = 0;
-			
+
 			for (char letter : letters) {
 				if (Character.isDigit(letter) == true) {
 					builder.append(letter);
 				}
-				
+
 				else if ((int) letter >= (int) 'a' && (int) letter <= (int) 'z') {
 					spaces = (int) letter - (int) 'a';
 					char encoded = (char) ((int) 'z' - spaces);
-					builder.append(encoded);			
-				}
-				else if ((int) letter >= (int) 'A' && (int) letter <= (int) 'Z'){
+					builder.append(encoded);
+				} else if ((int) letter >= (int) 'A' && (int) letter <= (int) 'Z') {
 					spaces = (int) letter - (int) 'A';
 					char encoded = (char) ((int) 'z' - spaces);
 					builder.append(encoded);
-				}				
+				}
 			}
 			return builder.toString();
 		}
@@ -819,7 +817,7 @@ public class EvaluationService {
 	 */
 	public boolean isValidIsbn(String string) {
 		// TODO Write an implementation for this method declaration
-		
+
 		char[] characters = string.toCharArray();
 		List<Integer> digits = new LinkedList<Integer>();
 		int multiplier = 10;
@@ -827,21 +825,19 @@ public class EvaluationService {
 		for (char character : characters) {
 			if (digits.size() == 9 && character == 'X') {
 				digits.add(10);
-			}
-			else if (Character.isDigit(character) == true) {
+			} else if (Character.isDigit(character) == true) {
 				digits.add(Character.getNumericValue(character));
 			}
-			
+
 		}
 		for (int digit : digits) {
 			product = product + (digit * multiplier);
 			multiplier--;
 		}
-		
+
 		if (digits.size() == 10 && product % 11 == 0) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -861,7 +857,22 @@ public class EvaluationService {
 	 */
 	public boolean isPangram(String string) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		int[] alphabetCheck = new int[26];
+		char[] characters = string.toLowerCase().toCharArray();
+		int index = -1;
+		for (char letter : characters) {
+			if ((int) letter >= (int) 'a' && (int) letter <= (int) 'z') {
+				index = (int) letter - (int) 'a';
+				alphabetCheck[index] = 1;
+			}
+		}
+		for (int check : alphabetCheck) {
+			if (check != 1) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
