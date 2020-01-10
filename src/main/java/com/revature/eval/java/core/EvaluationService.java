@@ -577,6 +577,10 @@ public class EvaluationService {
 	 * @param l
 	 * @return
 	 */
+	
+	/*
+	 * testProductOfPrimes CAN TAKE UP TO 2 MINUTES!
+	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		List<Long> numbers = new ArrayList<Long>();
 		List<Long> primes = new ArrayList<Long>();
