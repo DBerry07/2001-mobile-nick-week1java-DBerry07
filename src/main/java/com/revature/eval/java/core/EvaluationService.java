@@ -12,10 +12,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class EvaluationService {
 
@@ -899,8 +901,7 @@ public class EvaluationService {
 		if (!given.isSupported(ChronoField.SECOND_OF_DAY)) {
 			LocalDateTime converted = ((LocalDate) given).atStartOfDay();
 			lived = converted.plus(gigasecond, ChronoUnit.SECONDS);
-		}
-		else {
+		} else {
 			LocalDateTime converted = (LocalDateTime) given;
 			lived = converted.plus(gigasecond, ChronoUnit.SECONDS);
 		}
@@ -922,7 +923,23 @@ public class EvaluationService {
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+
+		Set<Integer> multiples = new HashSet<Integer>();
+		int total = 0;
+
+		for (int each : set) {
+			int multi = each;
+			while (multi < i) {
+				multiples.add(multi);
+				multi = multi + each;
+			}
+		}
+
+		for (int each : multiples) {
+			total += each;
+		}
+
+		return total;
 	}
 
 	/**
